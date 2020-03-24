@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Ajouter un produit{% endblock %}
+
+{% block body %}
+{{ parent() }}
+<h2>Ajouter un produit</h2>
+<div class="bg-success">
+{% for message in app.flashes('success') %}
+    {{ message }}
+{% endfor %}
+</div>
+
+<div class="container my-4">
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button class="btn btn-primary" formnovalidate>Ajouter le produit</button>
+    {{ form_end(form) }}
+</div>
+
+
+
+{% endblock %}

@@ -2,11 +2,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}TP BDD{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+        <h1>Mon site de produits</h1>
+        <div>
+            <a href="{{ path('liste_product') }}">Liste des produits</a>
+            <a href="{{ path('create_product') }}">Ajouter un produit</a>
+        </div>
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
