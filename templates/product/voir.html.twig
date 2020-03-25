@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Voir le produit {{ product.name }}{% endblock %}
+
+{% block body %}
+{{ parent() }}
+
+<h2>Voir le produit {{ product.name }}</h2>
+<ul>
+    <li>{{ product.description }}</li>
+    <li>{{ product.price }} €</li>
+</ul>
+
+{% endblock %}

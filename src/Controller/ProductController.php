@@ -7,15 +7,18 @@ use App\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ProductRepository;
 
 class ProductController extends AbstractController
 {
     /**
      * @Route("/product", name="liste_product")
      */
-    public function index()
+    public function index(ProductRepository $productRepository)
     {
-        $products=null;
+        $products = $productRepository->findAll();
+
+        dump($products);
         return $this->render('product/index.html.twig', [
         "products" => $products
             ]);
@@ -55,4 +58,21 @@ class ProductController extends AbstractController
         "form" => $form->createView()
             ]);
     }
+
+    /**
+     * @Route("/product/{id}", name="voir_product")
+     */
+    public function show($id,ProductRepository $productRepository){
+
+        $product = $productRepository->find($id);
+
+        if (!$product){
+            throw $this->createNotFoundException("Ce produit n'existe pas");
+        }
+
+        return $this->render('product/voir.html.twig',[
+            'product' => $product
+        ]);
+    }
+
 }
