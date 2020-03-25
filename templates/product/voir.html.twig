@@ -11,4 +11,6 @@
     <li>{{ product.price }} €</li>
 </ul>
 
+<a href="{{ path('edit_product',{id: product.id}) }}">Editer ce produit</a>
+<a href="{{ path('delete_product',{id: product.id}) }}">Supprimer ce produit</a>
 {% endblock %}
