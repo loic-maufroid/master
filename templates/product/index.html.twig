@@ -10,11 +10,14 @@
 <div class="container">
     <div class="row">
 {% for product in products %}
-    <div class="col-6">
-    <div class="card text-center">
+    <div class="col-lg-3 mt-3">
+    <div class="card text-center shadow">
        <h5 class="card-title"><a href="{{ path('voir_product',{id: product.id}) }}">{{ product.name }}</a></h5>
-       <p class="card-text">{{ product.description }}</p>
-       <p class="card-text">{{ product.price }} €</p>
+       <p class="card-text">{% if product.description|length > 15 %}{{ product.description[:15] }}...
+           {% else %}
+           {{ product.description }}
+           {% endif %}</p>
+       <p class="card-text font-weight-bold">{{ product.price }} €</p>
     </div>
     </div>
 {% endfor %}
