@@ -19,6 +19,13 @@
            {% endif %}</p>
        <p class="card-text font-weight-bold">{{ product.price }} €</p>
        <button class="card-text btn-success">Vendu par {{ product.user.username }}</button>
+       <p class="card-text">Tags :
+           {% for tag in product.tags %}
+               {{ tag.name }}
+               {% else %}
+                   aucun
+           {% endfor %}
+       </p>
     </div>
     </div>
 {% endfor %}

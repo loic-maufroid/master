@@ -92,4 +92,6 @@ class ProductRepository extends ServiceEntityRepository
     // Retourne un tableau de tableaux
     return $stmt->fetchAll();
     }
+
+    
 }

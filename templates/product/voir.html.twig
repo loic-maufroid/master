@@ -10,6 +10,12 @@
     <li>{{ product.description }}</li>
     <li>{{ product.price }} €</li>
     <li>Vendeur: {{ username }}</li>
+    <li>Catégorie: {{ product.category.name }}</li>
+    <li>Tags: {% for tag in product.tags %}
+        {{ tag.name }}
+        {% else %}
+            aucun
+    {% endfor %}</li>
 </ul>
 
 <a href="{{ path('edit_product',{id: product.id}) }}">Editer ce produit</a>

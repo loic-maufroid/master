@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -24,6 +25,12 @@ class AppFixtures extends Fixture
         $faker = \Faker\Factory::create('fr_FR');
         $users = [];
         $categories = [];
+
+        for ($i=1; $i <= 10; $i++) { 
+            $tag  =new Tag();
+            $tag->setName('Tag'.$i);
+            $manager->persist($tag);
+        }
 
         for ($i = 1; $i <= 10; $i++) {
             $user = new User();

@@ -18,6 +18,16 @@ class ProductType extends AbstractType
             ->add('name')
             ->add('description',TextareaType::class)
             ->add('price',NumberType::class)
+            ->add('user',null,[
+                'choice_label' => 'username'
+            ])
+            ->add('category',null,[
+                'choice_label' => 'name'
+            ])
+            ->add('tags',null,[
+                'choice_label' => 'name',
+                'expanded' => true
+            ])
         ;
     }
 
