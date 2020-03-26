@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} - Liste des produits{% endblock %}
+{% block title %}{{ parent() }} - Liste des produits de la catégorie {{ category.name }}{% endblock %}
 
 {% block body %}
 {{ parent() }}
 
-<h1>Liste des produits</h1>
+<h1>Liste des produits de la catégorie {{ category.name }}</h1>
+
+<h3>Description de {{ category.name }} : {% if category.description %}
+    {{ category.description }}
+    {% else %}
+    non définie
+    {% endif %}</h3>
 
 <div class="container">
     <div class="row">

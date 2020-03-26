@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ parent() }} - Catégories de produits {% endblock %}
+
+{% block body %}
+{{ parent() }}
+
+<ul>
+    {% for category in categories %}
+        <li><a href="{{ path('category_product',{slug: category.slug}) }}">
+            {{ category.name }}(
+                {% if category.description %}
+                {{ category.description }}
+                {% else %}
+                    description non définie
+                {% endif %}
+                )
+        </a></li>
+    {% endfor %}    
+</ul>
+{% endblock %}

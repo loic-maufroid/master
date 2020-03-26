@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,9 +73,10 @@ class ProductController extends AbstractController
             throw $this->createNotFoundException("Ce produit n'existe pas");
         }
 
-        return $this->render('product/voir.html.twig',[
-            'product' => $product
-        ]);
+        $username = $product->getUser()->getUsername();
+
+        return $this->render('product/voir.html.twig',
+            compact('product','username'));
     }
 
     /**
@@ -108,5 +110,27 @@ class ProductController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('liste_product');
+    }
+
+    /**
+     * @Route("/category/{slug}",name="category_product")
+     */
+    public function voirCategorie($slug,CategoryRepository $categoryRepository){
+        $category = $categoryRepository->findOneBy(["slug" => $slug]);
+
+        $products = $category->getProducts();
+
+        return $this->render("product/showByCategory.html.twig",
+        compact('products','category'));
+    }
+
+    /**
+     * @Route("/category",name="liste_categories")
+     */
+    public function liste(CategoryRepository $categoryRepository){
+        $categories = $categoryRepository->findAll();
+
+        return $this->render("product/indexCategories.html.twig",
+    compact('categories'));
     }
 }

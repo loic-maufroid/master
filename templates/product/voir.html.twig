@@ -9,6 +9,7 @@
 <ul>
     <li>{{ product.description }}</li>
     <li>{{ product.price }} €</li>
+    <li>Vendeur: {{ username }}</li>
 </ul>
 
 <a href="{{ path('edit_product',{id: product.id}) }}">Editer ce produit</a>
