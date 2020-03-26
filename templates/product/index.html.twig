@@ -12,7 +12,7 @@
 {% for product in products %}
     <div class="col-lg-3 mt-3">
     <div class="card text-center shadow">
-       <h5 class="card-title"><a href="{{ path('voir_product',{id: product.id}) }}">{{ product.name }}</a></h5>
+       <h5 class="card-title"><a href="{{ path('voir_product',{slug: product.slug}) }}">{{ product.name }}</a></h5>
        <p class="card-text">{% if product.description|length > 15 %}{{ product.description[:15] }}...
            {% else %}
            {{ product.description }}

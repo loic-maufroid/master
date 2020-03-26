@@ -47,4 +47,49 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+     /**
+     * @param $price
+     * @return Product[]
+     */
+    public function findAllGreaterThanPrice($price): array
+    {
+        // Va automatiquement faire un select sur la table product
+        // "p" est un alias comme en SQL
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.price > :price')
+            ->setParameter('price', $price)
+            ->orderBy('p.price', 'ASC')
+            ->getQuery();
+
+        return $queryBuilder->getResult();
+    }
+
+    /**
+     * @param $number
+     * @return Product[]
+     */
+    public function findMoreExpensive($number): array{
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT p FROM App\Entity\Product p ORDER BY p.price DESC'
+        )->setMaxResults($number);
+
+        return $query->getResult();
+    }
+
+    /**
+     * @param $num
+     * @return Product[]
+     */
+    public function findMoreExpensiveAsc(int $num): array{
+        $conn = $this->getEntityManager()->getConnection();
+
+    $sql = "SELECT * FROM (SELECT * FROM product p ORDER BY p.price DESC LIMIT :num) q ORDER BY q.price ASC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue("num",$num,\PDO::PARAM_INT);
+    $stmt->execute();
+
+    // Retourne un tableau de tableaux
+    return $stmt->fetchAll();
+    }
 }

@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProductRepository;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
 {
@@ -18,7 +19,6 @@ class ProductController extends AbstractController
     {
         $products = $productRepository->findAll();
 
-        dump($products);
         return $this->render('product/index.html.twig', [
         "products" => $products
             ]);
@@ -27,7 +27,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/create", name="create_product")
      */
-    public function create(Request $request)
+    public function create(Request $request, SluggerInterface $slugger)
     {
         $product = new Product();
 
@@ -36,6 +36,8 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $product->setSlug($slugger->slug($product->getName())->lower());
             // On peut aussi utiliser l'autowiring :
             // create(EntityManagerInterface $entityManager)
             $entityManager = $this->getDoctrine()->getManager();
@@ -60,11 +62,11 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/product/{id}", name="voir_product")
+     * @Route("/product/{slug}", name="voir_product")
      */
-    public function show($id,ProductRepository $productRepository){
+    public function show($slug,ProductRepository $productRepository){
 
-        $product = $productRepository->find($id);
+        $product = $productRepository->findOneBy(["slug" => $slug]);
 
         if (!$product){
             throw $this->createNotFoundException("Ce produit n'existe pas");

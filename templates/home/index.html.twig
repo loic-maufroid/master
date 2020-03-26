@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} - Bienvenue !{% endblock %}
+
+{% block body %}
+{{ parent() }}
+<div class="container">
+{% for product in products %}
+    <div>
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.price }} €</p>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
