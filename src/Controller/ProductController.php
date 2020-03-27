@@ -84,6 +84,7 @@ class ProductController extends AbstractController
      */
     public function edit(Request $request,Product $product){
 
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $form = $this->createForm(ProductType::class,$product);
         $form->handleRequest($request);
 
@@ -103,6 +104,7 @@ class ProductController extends AbstractController
      */
     public function delete(Product $product){
 
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $entityManager = $this->getDoctrine()->getManager();
 
         $entityManager->remove($product);

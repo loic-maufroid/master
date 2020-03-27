@@ -17,7 +17,8 @@
             aucun
     {% endfor %}</li>
 </ul>
-
+{% if is_granted('ROLE_ADMIN') %}
 <a href="{{ path('edit_product',{id: product.id}) }}">Editer ce produit</a>
 <a href="{{ path('delete_product',{id: product.id}) }}">Supprimer ce produit</a>
+{% endif %}
 {% endblock %}
